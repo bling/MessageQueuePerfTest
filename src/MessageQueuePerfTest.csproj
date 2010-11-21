@@ -41,6 +41,9 @@
     <Reference Include="Apache.NMS.ActiveMQ, Version=1.4.1.2098, Culture=neutral, PublicKeyToken=82756feee3957618, processorArchitecture=MSIL">
       <HintPath>..\lib\Apache.NMS.ActiveMQ.dll</HintPath>
     </Reference>
+    <Reference Include="Apache.NMS.Stomp">
+      <HintPath>..\lib\Apache.NMS.Stomp.dll</HintPath>
+    </Reference>
     <Reference Include="RabbitMQ.Client, Version=2.1.1.0, Culture=neutral, PublicKeyToken=89e7d7c5feba84ce, processorArchitecture=MSIL">
       <HintPath>..\lib\RabbitMQ.Client.dll</HintPath>
     </Reference>
@@ -55,6 +58,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActiveMq.cs" />
+    <Compile Include="Stomp.cs" />
     <Compile Include="Msmq.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -27,7 +27,8 @@ namespace MessageQueuePerfTest
         {
             //RunTest("rabbitmq", new RabbitMq(true));
             //RunTest("activemq", new ActiveMq(true));
-            RunTest("msmq", new Msmq(true));
+            //RunTest("msmq", new Msmq(true));
+            //RunTest("hornetq", new Stomp(true));
         }
 
         private static void RunTest(string desc, IMessageQueue queue)

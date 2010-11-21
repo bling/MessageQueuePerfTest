@@ -1,3 +1,4 @@
+using System;
 using System.Text;
 using System.Threading;
 using RabbitMQ.Client;
@@ -97,6 +98,7 @@ namespace MessageQueuePerfTest
             }
             _session.Model.Dispose();
             _connection.Dispose();
+            GC.SuppressFinalize(this);
         }
     }
 }

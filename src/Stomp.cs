@@ -1,32 +1,31 @@
 using System;
 using Apache.NMS;
-using Apache.NMS.ActiveMQ;
-using Apache.NMS.ActiveMQ.Commands;
+using Apache.NMS.Stomp;
 
 namespace MessageQueuePerfTest
 {
-    public class ActiveMq : IMessageQueue, IDisposable
+    public class Stomp : IMessageQueue, IDisposable
     {
-        private readonly ConnectionFactory _connectionFactory;
+        private readonly IConnectionFactory _connectionFactory;
         private readonly IConnection _connection;
         private readonly ISession _session;
         private readonly IMessageConsumer _consumer;
         private readonly IMessageProducer _producer;
 
-        public ActiveMq(bool durable)
+        public Stomp(bool durable)
         {
-            _connectionFactory = new ConnectionFactory("tcp://localhost:61616");
-            _connectionFactory.AsyncSend = true;
-            _connectionFactory.ProducerWindowSize = int.MaxValue;
+            _connectionFactory = new ConnectionFactory("tcp://localhost:61613");
             _connection = _connectionFactory.CreateConnection();
             _connection.ClientId = "13AC0CF8-65FE-4638-8B85-62210DD89BEE";
             _connection.Start();
             _session = _connection.CreateSession();
-            ActiveMQTopic topic = new ActiveMQTopic("topic");
-            _consumer = _session.CreateDurableConsumer(topic, "durable", "2 > 1", false);
+
+            var topic = _session.GetQueue("exampleQueue");
 
             _producer = _session.CreateProducer(topic);
             _producer.DeliveryMode = durable ? MsgDeliveryMode.Persistent : MsgDeliveryMode.NonPersistent;
+
+            _consumer = _session.CreateConsumer(topic);
         }
 
         void IMessageQueue.StartConsuming()
